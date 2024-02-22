@@ -1,4 +1,5 @@
 var counter = document.getElementById('count');
+var cphElement = document.getElementById('cph'); 
 var count = 0;
 var nice = document.getElementById('nice');
 var niceNumbers = [69, 169, 269, 369, 469, 569, 669, 690, 769, 869, 969];
@@ -16,6 +17,7 @@ var backgroundPositionX = 0;
 var timeElement = document.getElementById('time');
 var startTime = null;
 var timerInterval = null;
+var resignElement = document.getElementById('resign'); 
 
 // Sæt bredden af HUD, 'green' og 'brown' til at være det samme som movingBackground
 hud.style.width = movingBackground.offsetWidth + 'px';
@@ -31,12 +33,14 @@ window.addEventListener('resize', function() {
 // Lyt efter klik inde i den bevægende baggrund
 movingBackground.addEventListener('click', function() {
   increaseCounter();
+  updateClicksPerHour();
 });
 
 // Lyt efter tryk på mellemrumstasten
 document.addEventListener('keydown', function(event) {
   if (event.code === 'Space') {
     increaseCounter();
+    updateClicksPerHour();
 
     // Start the timer
     if (startTime === null) {
@@ -50,6 +54,11 @@ document.addEventListener('keydown', function(event) {
       }, 1000);
     }
   }
+});
+
+// Lyt efter klik på resign element
+resignElement.addEventListener('click', function() {
+  location.reload();
 });
 
 // Funktion til at øge tælleren og håndtere niceNumbers
@@ -70,4 +79,13 @@ function increaseCounter() {
 
   backgroundPositionX += -10; // juster denne værdi for at ændre, hvor meget baggrunden bevæger sig
   movingBackground.style.backgroundPosition = backgroundPositionX + 'px 0';
+}
+
+function updateClicksPerHour() {
+  if (startTime !== null) {
+    var elapsedTime = Date.now() - startTime;
+    var hours = elapsedTime / 1000 / 60 / 60;
+    var cph = count / hours;
+    cphElement.textContent = 'Clicks per hour: ' + (cph / 1000).toFixed(2);
+  }
 }
