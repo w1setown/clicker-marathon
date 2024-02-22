@@ -7,17 +7,20 @@ var hud = document.getElementById('hud');
 var brown = document.getElementById('brown');
 var green = document.getElementById('green');
 var man = document.getElementById('man')
-  man.style.position = 'absolute';
-  man.style.top = '-300%'
-  man.style.left = '45%'
-    green.appendChild(man);
+man.style.position = 'absolute';
+man.style.top = '-300%'
+man.style.left = '45%'
+green.appendChild(man);
 var backgroundPositionX = 0;
+
+var timeElement = document.getElementById('time');
+var startTime = null;
+var timerInterval = null;
 
 // Sæt bredden af HUD, 'green' og 'brown' til at være det samme som movingBackground
 hud.style.width = movingBackground.offsetWidth + 'px';
 brown.style.width = movingBackground.offsetWidth + 'px';
 green.style.width = movingBackground.offsetWidth + 'px';
-
 
 // Opdater bredden af HUD og brown når vinduets størrelse ændres
 window.addEventListener('resize', function() {
@@ -34,6 +37,18 @@ movingBackground.addEventListener('click', function() {
 document.addEventListener('keydown', function(event) {
   if (event.code === 'Space') {
     increaseCounter();
+
+    // Start the timer
+    if (startTime === null) {
+      startTime = Date.now();
+      timerInterval = setInterval(function() {
+        var elapsedTime = Date.now() - startTime;
+        var seconds = Math.floor(elapsedTime / 1000);
+        var minutes = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+        timeElement.textContent = 'Time: ' + minutes + 'm ' + seconds + 's';
+      }, 1000);
+    }
   }
 });
 
