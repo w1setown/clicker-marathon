@@ -13,7 +13,6 @@ man.style.top = '-300%'
 man.style.left = '45%'
 green.appendChild(man);
 var backgroundPositionX = 0;
-
 var timeElement = document.getElementById('time');
 var startTime = null;
 var timerInterval = null;
@@ -21,13 +20,12 @@ var resignElement = document.getElementById('resign');
 
 // Sæt bredden af HUD, 'green' og 'brown' til at være det samme som movingBackground
 hud.style.width = movingBackground.offsetWidth + 'px';
-brown.style.width = movingBackground.offsetWidth + 'px';
 green.style.width = movingBackground.offsetWidth + 'px';
 
 // Opdater bredden af HUD og brown når vinduets størrelse ændres
 window.addEventListener('resize', function() {
     hud.style.width = movingBackground.offsetWidth + 'px';
-    brown.style.width = movingBackground.offsetWidth + 'px';
+    green.style.width = movingBackground.offsetWidth + 'px';
 });
 
 // Lyt efter klik inde i den bevægende baggrund
@@ -58,7 +56,7 @@ document.addEventListener('keydown', function(event) {
 
 // Lyt efter klik på resign element
 resignElement.addEventListener('click', function() {
-  location.reload();
+  showGameOverPopup();
 });
 
 // Funktion til at øge tælleren og håndtere niceNumbers
@@ -86,6 +84,48 @@ function updateClicksPerHour() {
     var elapsedTime = Date.now() - startTime;
     var hours = elapsedTime / 1000 / 60 / 60;
     var cph = count / hours;
-    cphElement.textContent = 'Clicks per hour: ' + (cph / 1000).toFixed(2);
+    cphElement.textContent = (cph / 1000).toFixed(2) + ' kc/hr: ';
   }
+}
+
+// Funktion til at vise "GAME OVER" popup
+function showGameOverPopup() {
+  // Opret popup-container
+  var popupContainer = document.createElement('div');
+  popupContainer.style.position = 'fixed';
+  popupContainer.style.top = '0';
+  popupContainer.style.left = '0';
+  popupContainer.style.width = '100%';
+  popupContainer.style.height = '100%';
+  popupContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+  popupContainer.style.display = 'flex';
+  popupContainer.style.justifyContent = 'center';
+  popupContainer.style.alignItems = 'center';
+  popupContainer.style.zIndex = '999';
+
+  // Opret GAME OVER tekst
+  var gameOverText = document.createElement('p');
+  gameOverText.textContent = 'GAME OVER';
+  gameOverText.style.color = '#fff';
+  gameOverText.style.fontSize = '3rem';
+  gameOverText.style.fontWeight = 'bold';
+  popupContainer.appendChild(gameOverText);
+
+  // Opret Refresh button
+  var refreshButton = document.createElement('button');
+  refreshButton.textContent = 'Refresh';
+  refreshButton.style.backgroundColor = '#0bc4d1';
+  refreshButton.style.border = 'none';
+  refreshButton.style.color = '#fff';
+  refreshButton.style.padding = '18px 32px';
+  refreshButton.style.fontSize = '16px';
+  refreshButton.style.cursor = 'pointer';
+  refreshButton.style.borderRadius = '8px';
+  refreshButton.addEventListener('click', function() {
+    location.reload();
+  });
+  popupContainer.appendChild(refreshButton);
+
+  // Tilføj popup-container til body
+  document.body.appendChild(popupContainer);
 }
