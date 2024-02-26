@@ -38,7 +38,7 @@ movingBackground.addEventListener('click', function() {
 document.addEventListener('keydown', function(event) {
   if (event.code === 'Space') {
     increaseCounter();
-    updateClicksPerHour();
+    
 
     // Start the timer
     if (startTime === null) {
@@ -49,6 +49,9 @@ document.addEventListener('keydown', function(event) {
         var minutes = Math.floor(seconds / 60);
         seconds = seconds % 60;
         timeElement.textContent = 'Time: ' + minutes + 'm ' + seconds + 's';
+        
+        
+        updateClicksPerHour();
       }, 1000);
     }
   }
