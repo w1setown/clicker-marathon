@@ -5,6 +5,7 @@ body {
     padding: 0;
 }
 
+
 #moving-background {
     position: fixed;
     top: 55%;
@@ -116,12 +117,12 @@ button {
 
 #time {
     color: #0bc4d1;
-    font-size: 2vw;
+    font-size: 1.7vw;
     font-weight: bold;
     position: fixed;
     left: 180vh;
-    top: .6vh;
-    transform: translate(-50%, -50%);
+    top: 1vh;
+    transform: translate(-50%, -45%);
     z-index: 2; 
 }
 
@@ -142,4 +143,24 @@ button {
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+}
+
+#nice {
+    color: #0bc4d1;
+    font-size: 2vw;
+    font-weight: bold;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; 
+}
+
+#runningMan {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 23px;
 }
