@@ -6,6 +6,7 @@ body {
 }
 
 
+
 #moving-background {
     position: fixed;
     top: 55%;
@@ -20,6 +21,8 @@ body {
     background-size: cover; 
     animation: none;
 }
+
+
 
 #hud {
     position: fixed;
@@ -150,17 +153,8 @@ button {
     font-size: 2vw;
     font-weight: bold;
     position: fixed;
-    left: 50%;
-    top: 50%;
+    left: 55%;
+    top: 75%;
     transform: translate(-50%, -50%);
     z-index: 2; 
-}
-
-#runningMan {
-    position: absolute;
-    top: 0%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 23px;
 }
