@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counter</title>
-    <link rel="stylesheet" href="stylesheet.css" />
-</head>
-<body>
-    <div id="man">
-        <img id="runningMan" src="assets/ad_idle (0).png" width="210vh" alt="Running Man Sprite">
-    </div>
-
-    <p id="nice" style="display: none;">nice..</p>
-    <div id="hud"></div>
-    <div id="brown"></div>
-    <div id="green"></div>
-
-    <p id="resign">Resign</p>
-    <p id="cph">kc/h</p>
-    <p id="time">time:</p>
-
-    <div id="moving-background"></div>
-
-    <div id="grid-container">  
-        <p id="count">0</p>
-    </div>
-
-    <div id="gameOverModal" class="modal">
-        <div class="modal-content">
-            <p>GAME OVER</p>
-            <button id="refreshButton">Restart</button>
-        </div>
-    </div>
-    
-    <script src="counter_script.js"></script>
-    <script src="running_animation.js" type="module"></script>
-    <script src="manElement.js" type="module"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animations</title>
+    <style>
+        body{
+          background: rgb(1, 51, 1);
+          overflow: hidden;
+      }
+      
+      #myCanvas{
+          position: absolute;
+          border: 3px solid white;
+          width: 800px;
+          height: 700px;
+          transform: translate(-50%, -50%);
+          top: 50%;
+          left: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas">
+      <img src="images/bg-img/Layer_0010_1.png" alt="" id="Baggrund1">
+      <img src="images/bg-img/Layer_0010_1.png" alt="" id="Baggrund2">
+      <img src="images/bg-img/Layer_0009_2.png" alt="" id="Lag1">
+      <img src="images/bg-img/Layer_0008_3.png" alt="" id="Lag2">
+      <img src="images/bg-img/Layer_0007_Lights.png" alt="" id="Lys1">
+      <img src="images/bg-img/Layer_0006_4.png" alt="" id="Lag3">
+      <img src="images/bg-img/Layer_0005_5.png" alt="" id="Lag4">
+      <img src="images/bg-img/Layer_0004_Lights.png" alt="" id="Lys2">
+      <img src="images/bg-img/Layer_0003_6.png" alt="" id="Lag5">
+      <img src="images/bg-img/Layer_0002_7.png" alt="" id="Blade">
+      <img src="images/bg-img/Layer_0001_8.png" alt="" id="Jord">
+      <img src="images/bg-img/Layer_0000_9.png" alt="" id="Forgrund">
+    </canvas>
+    <script src="index.js" type="module"></script>
+  </body>
 </html>
