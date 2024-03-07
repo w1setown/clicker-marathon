@@ -27,6 +27,8 @@ export default class SpriteAnimation {
     return this.images[this.imageIndex];
   }
 
+  currentFrameIndex = 0;
+
   #setImageIndex() {
     this.timerCount--;
     if (this.timerCount <= 0 && !this.#shouldStop()) {

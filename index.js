@@ -1,4 +1,3 @@
-import img from "./img.js";
 import Player from "./Player.js";
 
 const canvas = document.getElementById('myCanvas');
@@ -21,6 +20,8 @@ const Jord = document.getElementById('Jord');
 const Forgrund = document.getElementById('Forgrund');
 
 const player = new Player();
+
+
 
 class Layer{
     constructor(image, movSpeed, y_Position){

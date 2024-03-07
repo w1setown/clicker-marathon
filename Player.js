@@ -18,13 +18,28 @@ export default class Player {
     const image = animation.getImage();
 
     const x = 100;
-    let y = 25;
+    let y = 700;
+    
+    if (this.state === PlayerStates.jump) {
+      const jumpFrame = animation.currentFrameIndex;
+
+      // Adjust the y-coordinate based on the jump frame
+      if (jumpFrame >= 1 && jumpFrame <= 4) {
+        // Increase y during the ascent (1st to 4th frame)
+        y -= jumpFrame * 100; // Adjust the multiplier as needed
+      } else if (jumpFrame >= 5 && jumpFrame <= 7) {
+        // Decrease y during the descent (5th to 7th frame)
+        y += (jumpFrame - 4) * 100; // Adjust the multiplier as needed
+      }
+    }
+    console.log('Player Position:', x, y);
 
     if (this.state == PlayerStates.slide) {
-      y = 200;
+      y = 700;
     }
 
     ctx.drawImage(image, x, y);
+    
   }
 
   #setState() {
@@ -46,44 +61,35 @@ export default class Player {
   #createAnimations() {
     this.idleAnimation = new SpriteAnimation(
       "Idle (?).png",
-      3,
-      9,
+      3, // Frame antal
+      9, // Frame rate
       PlayerStates.idle
     );
     this.walkAnimation = new SpriteAnimation(
-      "Run (?).png",
-      4,
-      8,
+      "Walk (?).png",
+      5, // Frame antal
+      8, // Frame rate
       PlayerStates.walk
     );
 
     this.jumpAnimation = new SpriteAnimation(
       "Jump (?).png",
-      4,
-      1,
+      7, // Frame antal
+      8, // Frame rate
       PlayerStates.jump
     );
 
     this.slideAnimation = new SpriteAnimation(
       "Slide (?).png",
-      10,
-      4,
+      2, // Frame antal
+      9, // Frame rate
       PlayerStates.slide
-    );
-    this.deadAnimation = new SpriteAnimation(
-      "Dead (?).png",
-      10,
-      10,
-      PlayerStates.dead,
-      true
     );
 
     this.animations = [
       this.idleAnimation,
       this.walkAnimation,
-      this.runAnimation,
       this.jumpAnimation,
-      this.deadAnimation,
       this.slideAnimation,
     ];
   }
@@ -99,15 +105,8 @@ export default class Player {
       case "ShiftLeft":
         this.runPressed = true;
         break;
-      case "Space":
+      case "ArrowUp":
         this.jumpPressed = true;
-        break;
-      case "KeyD":
-        this.deadPressed = true;
-        break;
-      case "KeyR":
-        this.deadPressed = false;
-        this.deadAnimation.reset();
         break;
     }
   };
@@ -123,7 +122,7 @@ export default class Player {
       case "ShiftLeft":
         this.runPressed = false;
         break;
-      case "Space":
+      case "ArrowUp":
         this.jumpPressed = false;
         break;
     }
