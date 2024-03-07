@@ -7,6 +7,15 @@ export default class Player {
     this.#createAnimations();
     document.addEventListener("keydown", this.#keydown);
     document.addEventListener("keyup", this.#keyup);
+
+    this.width = 50; // Adjust the width of the hitbox
+    this.height = 70; // Adjust the height of the hitbox
+    this.hitbox = {
+      x: 143, // Initial x position of the hitbox
+      y: 665, // Initial y position of the hitbox
+    };
+
+    
   }
 
   draw(ctx) {
@@ -18,34 +27,23 @@ export default class Player {
     const image = animation.getImage();
 
     const x = 100;
-    let y = 700;
-    
-    if (this.state === PlayerStates.jump) {
-      const jumpFrame = animation.currentFrameIndex;
+    let y = 645;
 
-      // Adjust the y-coordinate based on the jump frame
-      if (jumpFrame >= 1 && jumpFrame <= 4) {
-        // Increase y during the ascent (1st to 4th frame)
-        y -= jumpFrame * 100; // Adjust the multiplier as needed
-      } else if (jumpFrame >= 5 && jumpFrame <= 7) {
-        // Decrease y during the descent (5th to 7th frame)
-        y += (jumpFrame - 4) * 100; // Adjust the multiplier as needed
-      }
-    }
+    const x2 = this.hitbox.x;
+    const y2 = this.hitbox.y;
+
     console.log('Player Position:', x, y);
 
     if (this.state == PlayerStates.slide) {
-      y = 700;
+      y = 645;
     }
 
     ctx.drawImage(image, x, y);
-    
+    this.#drawHitbox(ctx, x2, y2); // Draw the hitbox
   }
 
   #setState() {
-    if (this.deadPressed) {
-      this.state = PlayerStates.dead;
-    } else if (this.slidePressed) {
+    if (this.slidePressed) {
       this.state = PlayerStates.slide;
     } else if (this.jumpPressed) {
       this.state = PlayerStates.jump;
@@ -60,35 +58,28 @@ export default class Player {
 
   #createAnimations() {
     this.idleAnimation = new SpriteAnimation(
-      "Idle (?).png",
-      3, // Frame antal
-      9, // Frame rate
-      PlayerStates.idle
-    );
-    this.walkAnimation = new SpriteAnimation(
       "Walk (?).png",
-      5, // Frame antal
-      8, // Frame rate
-      PlayerStates.walk
+      3,
+      9,
+      PlayerStates.idle
     );
 
     this.jumpAnimation = new SpriteAnimation(
       "Jump (?).png",
-      7, // Frame antal
-      8, // Frame rate
+      7,
+      8,
       PlayerStates.jump
     );
 
     this.slideAnimation = new SpriteAnimation(
       "Slide (?).png",
-      2, // Frame antal
-      9, // Frame rate
+      2,
+      9,
       PlayerStates.slide
     );
 
     this.animations = [
       this.idleAnimation,
-      this.walkAnimation,
       this.jumpAnimation,
       this.slideAnimation,
     ];
@@ -96,9 +87,6 @@ export default class Player {
 
   #keydown = (event) => {
     switch (event.code) {
-      case "ArrowRight":
-        this.rightPressed = true;
-        break;
       case "ArrowDown":
         this.slidePressed = true;
         break;
@@ -106,16 +94,16 @@ export default class Player {
         this.runPressed = true;
         break;
       case "ArrowUp":
-        this.jumpPressed = true;
+        if (!this.jumpPressed) {
+          this.jumpPressed = true;
+          this.jumpAnimation.reset();
+        }
         break;
     }
   };
 
   #keyup = (event) => {
     switch (event.code) {
-      case "ArrowRight":
-        this.rightPressed = false;
-        break;
       case "ArrowDown":
         this.slidePressed = false;
         break;
@@ -127,4 +115,10 @@ export default class Player {
         break;
     }
   };
+
+  #drawHitbox(ctx, x, y) {
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, this.width, this.height);
+  }
 }

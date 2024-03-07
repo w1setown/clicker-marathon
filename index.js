@@ -18,10 +18,10 @@ const Lag5 = document.getElementById('Lag5');
 const Blade = document.getElementById('Blade');
 const Jord = document.getElementById('Jord');
 const Forgrund = document.getElementById('Forgrund');
-
 const player = new Player();
 
-
+    
+  
 
 class Layer{
     constructor(image, movSpeed, y_Position){
@@ -102,10 +102,10 @@ function game() {
   jordLayer.update();
   jordLayer.draw();
 
+  player.draw(ctx);
+
   forgrundLayer.update();
   forgrundLayer.draw();
-
-  player.draw(ctx);
 }
 
 setInterval(game, 1000 / 60);
