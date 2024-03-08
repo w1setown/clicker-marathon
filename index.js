@@ -20,8 +20,27 @@ const Jord = document.getElementById('Jord');
 const Forgrund = document.getElementById('Forgrund');
 const player = new Player();
 
+let isSpacePressed = false;
+let startTime = null;
+
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space' && !isSpacebarPressed) {
+        isSpacebarPressed = true;
+        startTime = Date.now(); // Start the timer
+    }
+});
+
+document.addEventListener('keyup', (event) => {
+    if (event.code === 'Space') {
+        isSpacebarPressed = false;
+        if (startTime) {
+            let elapsedTime = Date.now() - startTime; // Calculate elapsed time
+            console.log(`Elapsed time: ${elapsedTime} ms`);
+            startTime = null; // Reset the timer
+        }
+    }
+});
     
-  
 
 class Layer{
     constructor(image, movSpeed, y_Position){
