@@ -3,6 +3,20 @@ This is a game made with HTML, CSS and JS. It is a really simple project, but th
 It is still work-in-progress
 
 
+## Patch 0.2.1.6 - 8th of March 2024 
+
+### Changes 
+      - Animation
+              > Idle animation has been swapped with the running, and the idle animation is currently obsolete. (Will be added in later patch)
+
+### Goals
+
+      - Gameplay
+              > Game rules and mechanics from patch 0.1 will be added.
+              > Hitboxes will be added.
+              > Random enviroment script will be build.
+
+
 
 ## Patch 0.2.1 - 7th of March 2024
 
